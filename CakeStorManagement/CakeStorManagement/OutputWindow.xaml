@@ -1,0 +1,62 @@
+﻿<Window x:Class="CakeStorManagement.OutputWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CakeStorManagement"
+        mc:Ignorable="d"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        xmlns:uc="clr-namespace:CakeStorManagement.MyUserControl"
+        Title="Lịch sử xuất hàng" Height="720" Width="1000"
+        DataContext="{StaticResource HistoryOutputVM}"
+        Name="window">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <uc:ControlBarUC  Tag="{Binding Title, ElementName =window}"></uc:ControlBarUC>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <materialDesign:Card Grid.Row="0" Margin="5">
+                <WrapPanel Margin=" 0 0 0 10">
+                    <DatePicker VerticalAlignment="Center"  Width="100" materialDesign:HintAssist.Hint="Ngày bắt đầu" Margin="5 5 15 5" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                 SelectedDate="{Binding DateOutput}"/>
+                    <DatePicker VerticalAlignment="Center"  Width="100" materialDesign:HintAssist.Hint="Ngày kết thúc" Margin="5 5 15 5" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                 SelectedDate="{Binding DateOutput}"/>
+                    <Button Style="{StaticResource MaterialDesignRaisedLightButton}" Width="100"
+                            ToolTip="Filter - Lọc" Content="Lọc"/>
+                </WrapPanel>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
+            
+                    <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                <GridViewColumn Header="Ngày xuất" DisplayMemberBinding="{Binding DateOutput, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
+                                <GridViewColumn Header="Người xuất" DisplayMemberBinding="{Binding User.DisplayName}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+            </materialDesign:Card>
+        </Grid>
+    </Grid>
+</Window>

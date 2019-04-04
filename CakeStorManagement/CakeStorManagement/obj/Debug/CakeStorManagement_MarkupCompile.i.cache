@@ -1,0 +1,20 @@
+﻿CakeStorManagement
+
+
+winexe
+C#
+.cs
+E:\C# - WPF\CakeStorManagement\CakeStorManagement\obj\Debug\
+CakeStorManagement
+none
+false
+DEBUG;TRACE
+E:\C# - WPF\CakeStorManagement\CakeStorManagement\App.xaml
+20722261160
+2459007165
+65-494345223
+23809955974
+AddInputWindow.xaml;AddOutputWindow.xaml;CakeWindow.xaml;CustomerWindow.xaml;InputCake.xaml;InputDetailWindow.xaml;InputWindow.xaml;LoginWindow.xaml;OutputCake.xaml;OutputDetailWindow.xaml;OutputWindow.xaml;ResourceXAML\MainResouce.xaml;MyUserControl\ControlBarUC.xaml;HistoryWindow.xaml;MainWindow.xaml;StatisticWindow.xaml;SuplierWindow.xaml;UnitWindow.xaml;UserWindow.xaml;ViewStatisticWindow.xaml;
+
+True
+

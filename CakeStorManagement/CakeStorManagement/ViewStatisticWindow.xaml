@@ -1,0 +1,49 @@
+﻿<Window x:Class="CakeStorManagement.ViewStatisticWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CakeStorManagement"
+       mc:Ignorable="d"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        xmlns:uc="clr-namespace:CakeStorManagement.MyUserControl"
+        Title="Thống kê" Height="300" Width="400"
+        DataContext="{StaticResource ViewStatisticVM}"
+        Name="viewstatisticwindow">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <uc:ControlBarUC  Tag="{Binding Title, ElementName =window}"></uc:ControlBarUC>
+        </Grid>
+
+        <materialDesign:Card Grid.Row="1" HorizontalAlignment="Center"
+                                                     VerticalAlignment="Center" Background="{x:Null}">
+            <StackPanel Margin=" 0 0 0 10">
+                <TextBlock Text="Lọc thống kê" HorizontalAlignment="Center" FontFamily="Champagne &amp; Limousines"  VerticalAlignment="Top" Foreground="Gray" FontSize="20" Margin="80,0,92,0"/>
+                <DatePicker VerticalAlignment="Center"  Width="100" materialDesign:HintAssist.Hint="Ngày bắt đầu" Margin="5 5 15 5" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                 SelectedDate="{Binding DateStart}"/>
+                <DatePicker VerticalAlignment="Center"  Width="100" materialDesign:HintAssist.Hint="Ngày kết thúc" Margin="5 5 15 5" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                 SelectedDate="{Binding DateEnd}"/>
+                <Button Style="{StaticResource MaterialDesignRaisedLightButton}" Width="100"  Margin="-10,20,0,0"  HorizontalAlignment="Center"
+                            ToolTip="Filter - Lọc" Content="Xem" Command="{Binding StatisticCommand}"/>
+                <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" x:Name="DeterminateCircularProgress" />
+            </StackPanel>
+            
+        </materialDesign:Card>
+
+    </Grid>
+</Window>

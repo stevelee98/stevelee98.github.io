@@ -1,0 +1,69 @@
+﻿<Window x:Class="CakeStorManagement.OutputDetailWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CakeStorManagement"
+        mc:Ignorable="d"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        xmlns:uc="clr-namespace:CakeStorManagement.MyUserControl"
+        Title="Danh sách hàng xuất" Height="720" Width="1000"
+        DataContext="{StaticResource OutputDetailVM}"
+        Name="window">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <uc:ControlBarUC  Tag="{Binding Title, ElementName =window}"></uc:ControlBarUC>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <materialDesign:Card Grid.Row="0" Margin="5">
+                <WrapPanel Margin=" 0 0 0 10">
+                    <TextBox materialDesign:HintAssist.Hint="ID đơn hàng" Margin="5 5 15 5" 
+                             Text="{Binding IdOutput,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox materialDesign:HintAssist.Hint="Người tạo" Margin="5 5 15 5" 
+                             Text="{Binding UserNameOutput,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox materialDesign:HintAssist.Hint="Ngày xuất" Margin="5 5 15 5" 
+                             Text="{Binding DateOutput,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox materialDesign:HintAssist.Hint="Số lượng hàng xuất" Margin="5 5 15 5" 
+                             Text="{Binding TotalCount,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                </WrapPanel>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="1" Margin="5" VerticalAlignment="Stretch">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"    >
+                    <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem,Mode=OneWayToSource}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                <GridViewColumn Header="Tên hàng" DisplayMemberBinding="{Binding Cake.DisplayName}"></GridViewColumn>
+                                <GridViewColumn Header="Ngày xuất" DisplayMemberBinding="{Binding Output.DateOutput}"></GridViewColumn>
+                                <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding Count}"></GridViewColumn>
+                                <GridViewColumn Header="Giá xuất" DisplayMemberBinding="{Binding InputInfor.OutputPrice}"></GridViewColumn>
+                                <GridViewColumn Header="Khách hàng" DisplayMemberBinding="{Binding Customer.DisplayName}"></GridViewColumn>
+                                <GridViewColumn Header="Trạng thái"  DisplayMemberBinding="{Binding Status}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>
+            </materialDesign:Card>
+        </Grid>
+    </Grid>
+</Window>

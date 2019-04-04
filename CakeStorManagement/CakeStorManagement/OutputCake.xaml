@@ -1,0 +1,116 @@
+﻿<Window x:Class="CakeStorManagement.OutputCake"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CakeStorManagement"
+        mc:Ignorable="d"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        xmlns:uc="clr-namespace:CakeStorManagement.MyUserControl"
+        Title="Xuất hàng" Height="720" Width="1000"
+        DataContext="{StaticResource OutputCakeVM}"
+        Name="outputcakewindow">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <uc:ControlBarUC  Tag="{Binding Title, ElementName =outputcakewindow}"></uc:ControlBarUC>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition> 
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <materialDesign:Card Grid.Row="0">
+                <WrapPanel>
+                    <TextBlock VerticalAlignment="Center" Margin="10" Width="70"
+                             Text="Id hóa đơn: "  />
+                    <TextBlock  VerticalAlignment="Center" Width="80"
+                             Text="{Binding IdOutput,UpdateSourceTrigger=PropertyChanged}"  />
+                    <TextBlock VerticalAlignment="Center" Margin="10" Width="70"
+                             Text="Ngày xuất: "  />
+                    <TextBlock  VerticalAlignment="Center" Margin="3" Width="100"
+                             Text="{Binding DateOutput,UpdateSourceTrigger=PropertyChanged}"  />
+                    <TextBlock VerticalAlignment="Center" Margin="10" Width="120"
+                             Text="Người tạo hóa đơn: "  />
+                    <TextBlock  VerticalAlignment="Center" Margin="3" Width="100"
+                             Text="{Binding UserOutput,UpdateSourceTrigger=PropertyChanged}"  />
+                </WrapPanel>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="1" Margin="5">
+                <WrapPanel Margin=" 0 0 0 10">
+                    <ComboBox Margin="5 5 15 5" materialDesign:HintAssist.Hint="Tên hàng" IsEditable="True"
+                              DisplayMemberPath="DisplayName"
+                              ItemsSource="{Binding CakeList}" SelectedItem="{Binding SelectedCake, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                    <TextBox materialDesign:HintAssist.Hint="Số lượng" Margin="5 5 15 5" 
+                             Text="{Binding Count,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <ComboBox Margin="5 5 15 5" materialDesign:HintAssist.Hint="Giá xuất" IsEditable="True"                              
+                              ItemsSource="{Binding OutputPriceList}" SelectedItem="{Binding SelectedPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+
+                    <ComboBox Margin="5 5 15 5" materialDesign:HintAssist.Hint="Khách hàng" IsEditable="True"
+                              DisplayMemberPath="DisplayName"
+                              ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                    <TextBox materialDesign:HintAssist.Hint="Trạng thái" Margin="5 5 15 5" 
+                             Text="{Binding Status,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBlock Width="110" VerticalAlignment="Center" FontSize="18"                             
+                             Text="Số lượng tồn: "  />
+                    <TextBlock VerticalAlignment="Center"  Width="200" FontSize="20"
+                             Text="{Binding InventoryCake,UpdateSourceTrigger=PropertyChanged}"  />
+                </WrapPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Row="2" Margin="5">
+                <WrapPanel>
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="100"  Margin="5"
+                            Content="Thêm" Background="CornflowerBlue"
+                            Command="{Binding AddCommand}" />
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="100"  Margin="5"
+                            Background="BlueViolet"
+                            Content="Sửa"
+                            Command="{Binding EditCommand}" />
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="100"  Margin="5"
+                            Content="Xóa" Background="OrangeRed"
+                            Command="{Binding DeleteCommand}" />
+                    <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" Width="100"  Margin="5"
+                            Content="Xong"
+                            Command="{Binding FinishCommand}" 
+                            CommandParameter="{Binding ElementName=outputcakewindow}"/>
+                </WrapPanel>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="3" Margin="5" VerticalAlignment="Stretch">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"    >
+                    <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem,Mode=OneWayToSource}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Tên hàng" DisplayMemberBinding="{Binding Cake.DisplayName}"></GridViewColumn>
+                                <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding Count}"></GridViewColumn>
+                                <GridViewColumn Header="Giá xuất" DisplayMemberBinding="{Binding OutputPrice}"></GridViewColumn>
+                                <GridViewColumn Header="Khách hàng" DisplayMemberBinding="{Binding Customer.DisplayName}"></GridViewColumn>
+                                <GridViewColumn Header="Trạng thái"  DisplayMemberBinding="{Binding Status}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>
+            </materialDesign:Card>
+        </Grid>
+    </Grid>
+</Window>

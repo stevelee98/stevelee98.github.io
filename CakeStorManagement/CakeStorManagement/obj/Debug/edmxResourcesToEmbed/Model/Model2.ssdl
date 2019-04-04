@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CakeStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Cake">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="DisplayName" Type="nvarchar(max)" />
+    <Property Name="CakeType" Type="int" Nullable="false" />
+    <Property Name="IdUnit" Type="int" Nullable="false" />
+    <Property Name="IdSuplier" Type="int" Nullable="false" />
+    <Property Name="BarCode" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="CakeType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DisplayName" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DisplayName" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" MaxLength="200" />
+    <Property Name="MoreInfor" Type="nvarchar(max)" />
+    <Property Name="ContractDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Input">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdUser" Type="int" Nullable="false" />
+    <Property Name="DateInput" Type="datetime" />
+  </EntityType>
+  <EntityType Name="InputInfor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdCake" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="IdInput" Type="int" Nullable="false" />
+    <Property Name="Count" Type="int" />
+    <Property Name="InputPrice" Type="float" />
+    <Property Name="OutputPrice" Type="float" />
+    <Property Name="Status" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Output">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdUser" Type="int" Nullable="false" />
+    <Property Name="DateOutput" Type="datetime" />
+  </EntityType>
+  <EntityType Name="OutputInfor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdCake" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="IdCustomer" Type="int" Nullable="false" />
+    <Property Name="IdOutput" Type="int" Nullable="false" />
+    <Property Name="Count" Type="int" />
+    <Property Name="Status" Type="nvarchar(max)" />
+    <Property Name="OutputPrice" Type="float" />
+  </EntityType>
+  <EntityType Name="Suplier">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DisplayName" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" MaxLength="200" />
+    <Property Name="MoreInfor" Type="nvarchar(max)" />
+    <Property Name="ContractDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Unit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DisplayName" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DisplayName" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DisplayName" Type="nvarchar(max)" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+    <Property Name="PassWords" Type="nvarchar(max)" />
+    <Property Name="IdRole" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Cake__CakeType__300424B4">
+    <End Role="CakeType" Type="Self.CakeType" Multiplicity="1" />
+    <End Role="Cake" Type="Self.Cake" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CakeType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cake">
+        <PropertyRef Name="CakeType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cake__IdSuplier__25869641">
+    <End Role="Suplier" Type="Self.Suplier" Multiplicity="1" />
+    <End Role="Cake" Type="Self.Cake" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cake">
+        <PropertyRef Name="IdSuplier" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cake__IdUnit__267ABA7A">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+    <End Role="Cake" Type="Self.Cake" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cake">
+        <PropertyRef Name="IdUnit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Input__IdUser__276EDEB3">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Input" Type="Self.Input" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Input">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__InputInfo__IdCak__286302EC">
+    <End Role="Cake" Type="Self.Cake" Multiplicity="1" />
+    <End Role="InputInfor" Type="Self.InputInfor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cake">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InputInfor">
+        <PropertyRef Name="IdCake" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__InputInfo__IdInp__29572725">
+    <End Role="Input" Type="Self.Input" Multiplicity="1" />
+    <End Role="InputInfor" Type="Self.InputInfor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Input">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InputInfor">
+        <PropertyRef Name="IdInput" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Output__IdUser__2A4B4B5E">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Output" Type="Self.Output" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Output">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OutputInf__IdCak__2B3F6F97">
+    <End Role="Cake" Type="Self.Cake" Multiplicity="1" />
+    <End Role="OutputInfor" Type="Self.OutputInfor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cake">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OutputInfor">
+        <PropertyRef Name="IdCake" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OutputInf__IdCus__2C3393D0">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="OutputInfor" Type="Self.OutputInfor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OutputInfor">
+        <PropertyRef Name="IdCustomer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OutputInf__IdOut__2E1BDC42">
+    <End Role="Output" Type="Self.Output" Multiplicity="1" />
+    <End Role="OutputInfor" Type="Self.OutputInfor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Output">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OutputInfor">
+        <PropertyRef Name="IdOutput" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Users__IdRole__2F10007B">
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserRole">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="IdRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CakeStoreModelStoreContainer">
+    <EntitySet Name="Cake" EntityType="Self.Cake" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CakeType" EntityType="Self.CakeType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Input" EntityType="Self.Input" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InputInfor" EntityType="Self.InputInfor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Output" EntityType="Self.Output" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OutputInfor" EntityType="Self.OutputInfor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Suplier" EntityType="Self.Suplier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Cake__CakeType__300424B4" Association="Self.FK__Cake__CakeType__300424B4">
+      <End Role="CakeType" EntitySet="CakeType" />
+      <End Role="Cake" EntitySet="Cake" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cake__IdSuplier__25869641" Association="Self.FK__Cake__IdSuplier__25869641">
+      <End Role="Suplier" EntitySet="Suplier" />
+      <End Role="Cake" EntitySet="Cake" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cake__IdUnit__267ABA7A" Association="Self.FK__Cake__IdUnit__267ABA7A">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="Cake" EntitySet="Cake" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Input__IdUser__276EDEB3" Association="Self.FK__Input__IdUser__276EDEB3">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Input" EntitySet="Input" />
+    </AssociationSet>
+    <AssociationSet Name="FK__InputInfo__IdCak__286302EC" Association="Self.FK__InputInfo__IdCak__286302EC">
+      <End Role="Cake" EntitySet="Cake" />
+      <End Role="InputInfor" EntitySet="InputInfor" />
+    </AssociationSet>
+    <AssociationSet Name="FK__InputInfo__IdInp__29572725" Association="Self.FK__InputInfo__IdInp__29572725">
+      <End Role="Input" EntitySet="Input" />
+      <End Role="InputInfor" EntitySet="InputInfor" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Output__IdUser__2A4B4B5E" Association="Self.FK__Output__IdUser__2A4B4B5E">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Output" EntitySet="Output" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OutputInf__IdCak__2B3F6F97" Association="Self.FK__OutputInf__IdCak__2B3F6F97">
+      <End Role="Cake" EntitySet="Cake" />
+      <End Role="OutputInfor" EntitySet="OutputInfor" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OutputInf__IdCus__2C3393D0" Association="Self.FK__OutputInf__IdCus__2C3393D0">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="OutputInfor" EntitySet="OutputInfor" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OutputInf__IdOut__2E1BDC42" Association="Self.FK__OutputInf__IdOut__2E1BDC42">
+      <End Role="Output" EntitySet="Output" />
+      <End Role="OutputInfor" EntitySet="OutputInfor" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__IdRole__2F10007B" Association="Self.FK__Users__IdRole__2F10007B">
+      <End Role="UserRole" EntitySet="UserRole" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
